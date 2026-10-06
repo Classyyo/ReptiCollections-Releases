@@ -52,3 +52,18 @@ Example:
 - Keep the source-code repository separate and private.
 - Use one release per app version.
 - Keep the APK asset filename exactly `ReptiCollections.apk` so the permanent download link never changes.
+
+## Automated publishing
+
+The main **ReptiCollections** repository contains the GitHub Actions workflow **Build & Publish APK**.
+
+When that workflow is run, it:
+
+1. Reads the current ReptiCollections app version.
+2. Builds the Android **preview APK** with EAS.
+3. Downloads the finished APK from the build service.
+4. Creates a versioned GitHub Release here, such as `v1.8.0`.
+5. Uploads the build using the permanent asset name `ReptiCollections.apk`.
+6. Marks that release as the latest release, so `https://download.repticollections.com` continues to work.
+
+The main repository needs an Actions secret named `RELEASES_TOKEN` with write access to this releases repository. The token itself must never be committed to either repository.
